@@ -1,3 +1,5 @@
+from contextlib import nullcontext as does_not_raise
+
 import pytest
 import torch
 from transformers import AutoTokenizer
@@ -72,8 +74,7 @@ def test_multiple_guided_options_not_allowed(sample_json_schema, sample_regex):
                        match="You can only use one kind of guided"):
         GuidedDecodingParams(json=sample_json_schema, regex=sample_regex)
 
-    with pytest.raises(ValueError,
-                       match="You can only use one kind of guided"):
+    with does_not_raise():
         GuidedDecodingParams(json=sample_json_schema, json_object=True)
 
     with pytest.raises(ValueError,

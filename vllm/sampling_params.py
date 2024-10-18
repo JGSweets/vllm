@@ -73,8 +73,9 @@ class GuidedDecodingParams:
     def __post_init__(self):
         """Validate that some fields are mutually exclusive."""
         guide_count = sum([
-            self.json is not None, self.regex is not None, self.choice
-            is not None, self.grammar is not None, self.json_object is not None
+            self.json is not None or self.json_object is not None,
+            self.regex is not None, self.choice is not None,
+            self.grammar is not None,
         ])
         if guide_count > 1:
             raise ValueError(
